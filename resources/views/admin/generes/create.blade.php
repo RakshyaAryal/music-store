@@ -11,7 +11,7 @@
                     <input type="text" name="title" value="{{$generes->title}}" class="form-group">
                 </div>
 
-                <input type="submit"name="submit" class="btn-success">
+                <input type="submit"name="submit" class="btn btn-success">
 
             </form></div>
         <div class="panel-footer"></div>

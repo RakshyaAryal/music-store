@@ -2,7 +2,7 @@
 @section('content')
     <h1>Add Music</h1>
 
-    <form action="{{url('admin/music/store/'.$music->id)}}" method="post">
+    <form action="{{url('admin/music/store/'.$music->id)}}" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
 
         <div class="form-group">
@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label for="generes_id">Generes</label>
-                <select name="" id="generes_id" class="form-control">
+                <select name="generes" id="generes_id" class="form-control">
                     @foreach( $generes as $genere)
                         <option value="{{ $genere->id }}">{{ $genere->title }} </option>
                     @endforeach
@@ -43,7 +43,8 @@
 
             <div class="form-group">
                 <label>Image</label>
-                <input type="text" name="image" value="{{ $music->image }}" class="form-control">
+                <img src="{{ url('uploads/'.$music->image) }}" height="200">
+                <input type="file" name="image" class="form-control" onchange="previewFile()">
             </div>
 
 
@@ -51,4 +52,22 @@
         </div>
 
     </form>
+    <script>
+
+
+            function previewFile() {
+                var preview = document.querySelector('img');//$("img")
+                var file = document.querySelector('input[type=file]').files[0];
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    preview.src = reader.result;
+                }
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = "";
+                }
+            }
+
+    </script>
 @endsection

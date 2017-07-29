@@ -7,6 +7,6 @@
     <div>Generes:{{$music->generes}}</div>
     <div>Music Description:{{$music->music_description}}</div>
     <div>Price:{{$music->price}}</div>
-    <div>Image:{{$music->image}}</div>
+    <div>Image:<img src="{{ url('uploads/'.$music->image) }}"></div>
 </div>
     @endsection

@@ -12,17 +12,25 @@
             <td>Title</td>
             <td>Action</td>
         </tr>
-        @foreach($generes as $item)
+        @if(count($generes) > 0)
+            @foreach($generes as $item)
+                <tr>
+                    <td>{{$item->id}}</td>
+                    <td>{{$item->title}}</td>
+                    <td>
+                        <a href="{{URL::to('admin/generes/'.$item->id.'/delete')}}" class="btn btn-danger"
+                           onclick="return DeleteConfirm()">Delete</a>
+                        <a href="{{URL::to('admin/generes/'.$item->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                        <a href="{{URL::to('admin/generes/'.$item->id.'/view')}}" class="btn btn-success">View</a>
+                    </td>
+                </tr>
+            @endforeach
+        @else
             <tr>
-                <td>{{$item->id}}</td>
-                <td>{{$item->title}}</td>
-                <td>
-                    <a href="{{URL::to('admin/generes/'.$item->id.'/delete')}}" class="btn btn-danger"onclick="return DeleteConfirm()">Delete</a>
-                    <a href="{{URL::to('admin/generes/'.$item->id.'/edit')}}" class="btn btn-primary">Edit</a>
-                    <a href="{{URL::to('admin/generes/'.$item->id.'/view')}}" class="btn btn-success">View</a>
-                </td>
+                <td colspan="3">No record found</td>
             </tr>
-        @endforeach
+
+        @endif
 
     </table>
 
@@ -30,7 +38,7 @@
         function DeleteConfirm() {
             var isDelete = confirm('Are you sure want to delete?');
 
-            if(isDelete) {
+            if (isDelete) {
                 return true;
             } else {
                 return false;

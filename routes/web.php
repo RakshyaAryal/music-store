@@ -40,7 +40,7 @@ Auth::routes();
 
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth','check_access'], function () {
 
     Route::post('admin/music/store','Admin\MusicController@store');
     Route::get('admin/music','Admin\MusicController@index');
@@ -60,5 +60,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/generes/{id}/delete','Admin\GeneresController@delete');
     Route::post('admin/generes/store/{id}','Admin\GeneresController@update');
 
+
+    Route::get('admin/user_management', 'Admin\UserManagementController@index');
+    Route::get('admin/user_management/create', 'Admin\UserManagementController@create');
+    Route::get('admin/user_management/{id}/edit', 'Admin\UserManagementController@edit');
+    Route::post('admin/user_management/{id}/update', 'Admin\UserManagementController@update');
+    Route::get('admin/user_management/{id}/view', 'Admin\UserManagementController@view');
+    Route::post('admin/user_management/store', 'Admin\UserManagementController@store');
+    Route::get('admin/user_management/{id}/delete', 'Admin\UserManagementController@delete');
+    Route::post('admin/user_management/store/{id}', 'Admin\UserManagementController@update');
+    Route::get('admin/user_management/search', 'Admin\UserManagementController@search');
+
 });
+
 

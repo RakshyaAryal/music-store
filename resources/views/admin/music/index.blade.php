@@ -2,7 +2,7 @@
 @section('content')
 
     <a href="{{url('admin/music/create')}}" class="btn btn-primary pull-right">+Add</a>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="music-table">
         <tr>
             <td>#</td>
             <td>Artist</td>
@@ -38,5 +38,12 @@
             </tr>
         @endif
     </table>
-    {{ $music->links() }}
+   {{-- {{ $music->links() }}--}}
 @stop
+@section('scripts')
+    <script>
+        $("#music-table").dataTable({
+            "pageLength": 5
+        });
+    </script>
+@endsection

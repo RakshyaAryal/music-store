@@ -31,8 +31,8 @@
 
             <div class="form-group">
                 <label>Music Description</label>
-                <input type="text" name="music_description" value="{{ $music->music_description }}"
-                       class="form-control">
+                <textarea name="music_description" class="form-control">{{ $music->music_description }}</textarea>
+
             </div>
 
             <div class="form-group">

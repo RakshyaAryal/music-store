@@ -36,4 +36,32 @@ class   AccessListLibrary
 
         }
     }
+
+    public static function isAccessible($urlSegment2)
+    {
+        $urlSegment1 =  Request::segment(1);
+
+
+        if ($urlSegment1 == "admin"){
+            $user_id = Auth::user()->id;
+            $accessListByUser = AdminUserAccess::where('admin_user_id',$user_id)->get();
+            $arr = [];
+            foreach ($accessListByUser as $item){
+                $arr[] =$item->module;
+            }
+
+
+            if( $urlSegment2 ==  'profile' ){
+                return true;
+            }
+
+
+            if(in_array($urlSegment2,$arr)){
+                return true;
+            }
+            return false;
+
+
+        }
+    }
 }

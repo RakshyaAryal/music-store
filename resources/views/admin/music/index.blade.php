@@ -38,12 +38,12 @@
             </tr>
         @endif
     </table>
-   {{-- {{ $music->links() }}--}}
+    {{--{{ $music->links() }}--}}
 @stop
 @section('scripts')
     <script>
         $("#music-table").dataTable({
-            "pageLength": 5
+            "pageLength": 10
         });
     </script>
 @endsection

@@ -33,9 +33,12 @@
     {{-- {{ $music->links() }}--}}
 @stop
 @section('scripts')
-    <script>
+   {{-- <script>
         $("#music-table").dataTable({
             "pageLength": 5
         });
-    </script>
+    </script>--}}
+
+   {{ $user->links() }}
+
 @endsection

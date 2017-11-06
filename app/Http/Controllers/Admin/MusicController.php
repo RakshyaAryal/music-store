@@ -14,7 +14,7 @@ class MusicController extends Controller
     public function index()
     {
         $generes = Generes::all();
-        $music = Music::paginate(5);
+        $music = Music::all();
         return view('admin.music.index', compact('music', 'generes'));
     }
 

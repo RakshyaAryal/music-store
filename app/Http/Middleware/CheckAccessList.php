@@ -19,8 +19,8 @@ class CheckAccessList
         $urlSegment2 = Request::segment(2);
 
         if(!AccessListLibrary::haveAccess($urlSegment2)) {
-            echo "You do not have access to view this page";
-            exit;
+           /* echo "You do not have access to view this page";
+            exit;*/
         }
         return $next($request);
     }

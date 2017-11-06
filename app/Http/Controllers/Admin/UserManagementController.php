@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\AdminUserAccess;
 use App\Libraries\AccessListLibrary;
+use App\Role;
 use App\User;
+use App\UserRole;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,16 +14,16 @@ class UserManagementController extends Controller
 {
     Public function index()
     {
-        $user_management = User::all();
+        $user_management= User::paginate(10);
+       /* $user_management = User::all();*/
         return view('admin.user_management.index', compact('user_management'));
     }
 
     Public function create()
     {
-        $accessList = AccessListLibrary::accessList();
-
+        $roles = Role::all();
         $user_management = new User();
-        return view('admin.user_management.create', compact('user_management', 'accessList'));
+        return view('admin.user_management.create', compact('user_management', 'roles'));
     }
 
     public function store(Request $request)
@@ -55,9 +57,9 @@ class UserManagementController extends Controller
 
     public function edit($id)
     {
-        $accessList = AccessListLibrary::accessList();
+        $roles = Role::all();
         $user_management = User::findorfail($id);
-        return view('admin.user_management.create', compact('user_management', 'accessList'));
+        return view('admin.user_management.create', compact('user_management', 'roles'));
     }
 
     public function update($id, Request $request)
@@ -78,7 +80,7 @@ class UserManagementController extends Controller
 
         $user_management->fill($input)->save();
 
-        $this->updateAccess($id, $request);
+        $this->updateRole($id, $request);
 
         $request->session()->flash('flash_message', 'User updated successfully!');
         return redirect('admin/user_management');
@@ -90,18 +92,19 @@ class UserManagementController extends Controller
         return view('admin.user_management.view', compact('user_management'));
     }
 
-    public function updateAccess($id, Request $request)
+    public function updateRole($id, Request $request)
     {
-        $input['admin_user_id'] = $id;
-        AdminUserAccess::where('admin_user_id', $id)->delete();
-        $userAccessArr = $request->get('admin_user_access');
-        if (count($userAccessArr) > 0) {
-            foreach ($userAccessArr as $userAccess) {
-                $input['module'] = $userAccess;
-                AdminUserAccess::create($input);
+        $input['user_id'] = $id;
+
+        UserRole::where('user_id', $id)->delete();
+
+        // multiple roles save
+        $rolesArr = $request->get('role_id');
+        if (count($rolesArr) > 0) {
+            foreach ($rolesArr as $role_id) {
+                $input['role_id'] = $role_id;
+                UserRole::create($input);
             }
         }
-
-
     }
 }
